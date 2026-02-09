@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walentynka</title>
+    <style>
+        /* Reset i styl */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ff4d6d;
+            /* romantyczny róż */
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #container {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            background: white;
+            color: #ff4d6d;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <h1>Będziesz moją walentynką?</h1>
+        <button onclick="yes()">TAK</button>
+    </div>
+
+    <script>
+        // Pojawienie się po 1,5 sekundy
+        setTimeout(() => {
+            document.getElementById('container').style.opacity = 1;
+        }, 1500);
+
+        function yes() {
+            // Zmiana treści po kliknięciu
+            document.body.innerHTML = `
+        <div style="
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          height:100vh;
+          color:white;
+          font-size:2rem;
+          text-align:center;
+          padding:20px;
+        ">
+          Odbierz swój prezent w szafie
+        </div>
+      `;
+        }
+    </script>
