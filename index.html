@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Walentynka</title>
+    <title>Walentynka ❤️</title>
     <style>
-        /* Reset i styl */
         * {
             margin: 0;
             padding: 0;
@@ -16,75 +15,296 @@
         html,
         body {
             height: 100%;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
         }
 
         body {
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #ff4d6d;
-            /* romantyczny róż */
+            background: linear-gradient(135deg, #ff4d6d 0%, #ff758f 50%, #ff4d6d 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
             color: white;
             text-align: center;
             padding: 20px;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Spadające serduszka */
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: fall linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         #container {
             opacity: 0;
             transition: opacity 1s ease;
+            z-index: 10;
+            position: relative;
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
 
         button {
-            font-size: 1.2rem;
-            padding: 15px 30px;
+            font-size: 1.1rem;
+            padding: 18px 40px;
             border: none;
-            border-radius: 12px;
-            background: white;
-            color: #ff4d6d;
+            border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        button:hover {
+        @media (min-width: 768px) {
+            button {
+                font-size: 1.2rem;
+                padding: 15px 30px;
+            }
+        }
+
+        #yesBtn {
+            background: white;
+            color: #ff4d6d;
+            position: relative;
+            z-index: 100;
+        }
+
+        #yesBtn:hover {
             transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        #noBtn {
+            background: #ffb3c1;
+            color: #cc0033;
+            position: relative;
+            transition: none;
+            z-index: 99;
+        }
+        
+        #noBtn.moving {
+            position: absolute;
+        }
+
+        #noBtn:hover {
+            background: #ff9bb0;
+        }
+
+        .final-message {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 20px;
+            animation: celebration 0.5s ease;
+        }
+
+        @media (min-width: 768px) {
+            .final-message {
+                font-size: 2.5rem;
+            }
+        }
+
+        @keyframes celebration {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .gift-box {
+            font-size: 5rem;
+            margin: 20px 0;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
         }
     </style>
 </head>
 
 <body>
+    <!-- Spadające serduszka -->
+    <script>
+        // Tworzenie spadających serduszek
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+    </script>
 
     <div id="container">
-        <h1>Będziesz moją walentynką?</h1>
-        <button onclick="yes()">TAK</button>
+        <h1>💕 Będziesz moją walentynką? 💕</h1>
+        
+        <div class="button-container">
+            <button id="yesBtn" onclick="yes()">TAK ❤️</button>
+            <button id="noBtn" onclick="moveButton(event)">NIE 💔</button>
+        </div>
     </div>
 
     <script>
+        let attempts = 0;
+
         // Pojawienie się po 1,5 sekundy
         setTimeout(() => {
             document.getElementById('container').style.opacity = 1;
         }, 1500);
 
+        function moveButton(event) {
+            event.preventDefault();
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            
+            // Zmiana na absolute position przy pierwszym ruchu
+            if (!noBtn.classList.contains('moving')) {
+                noBtn.classList.add('moving');
+            }
+            
+            // Losowa pozycja dla przycisku NIE
+            const maxX = window.innerWidth - 150;
+            const maxY = window.innerHeight - 100;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            
+            // Zwiększanie przycisku TAK
+            attempts++;
+            const newSize = 1 + (attempts * 0.15);
+            yesBtn.style.transform = `scale(${newSize})`;
+            
+            // Zmniejszanie przycisku NIE
+            const noSize = Math.max(0.4, 1 - (attempts * 0.1));
+            noBtn.style.transform = `scale(${noSize})`;
+            
+            // Ukrycie przycisku NIE po 10 próbach
+            if (attempts >= 10) {
+                noBtn.style.display = 'none';
+            }
+        }
+
         function yes() {
+            // Konfetti effect
+            for (let i = 0; i < 50; i++) {
+                createConfetti();
+            }
+
             // Zmiana treści po kliknięciu
-            document.body.innerHTML = `
-        <div style="
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          height:100vh;
-          color:white;
-          font-size:2rem;
-          text-align:center;
-          padding:20px;
-        ">
-          Odbierz swój prezent w szafie
-        </div>
-      `;
+            setTimeout(() => {
+                document.body.innerHTML = `
+                    <div class="final-message">
+                        <div style="font-size: 2rem; margin-bottom: 20px;">🎉 WIEDZIAŁEM! 🎉</div>
+                        <div class="gift-box">🎁</div>
+                        <div style="font-size: 1.3rem;">Odbierz swój prezent w szafie!</div>
+                        <div style="font-size: 1.1rem; margin-top: 20px; opacity: 0.9;">❤️ Kocham Cię ❤️</div>
+                    </div>
+                `;
+            }, 100);
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            const symbols = ['❤️', '💕', '💖', '💝', '🌹', '💐', '✨', '🎉'];
+            confetti.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+            confetti.style.position = 'fixed';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '-50px';
+            confetti.style.fontSize = (Math.random() * 30 + 20) + 'px';
+            confetti.style.zIndex = '1000';
+            confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
         }
     </script>
+
+</body>
+
+</html>
